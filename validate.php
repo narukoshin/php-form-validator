@@ -1,5 +1,11 @@
 <?php
-    /** */
+    /**
+     * @author 湖心なる (naru.koshin@outlook.jp)
+     * @github https://www.github.com/narukoshin
+     * @instagram https://www.instagram.com/naru.koshin
+     * @site https://www.narukoshin.me
+     * 
+     */
     class Validator {
         /**
          * If the validation failed, the error will be set to true and we will print out the error message.
