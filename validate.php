@@ -143,7 +143,7 @@
              ->language("japanese")
     // some custom validation
              ->custom(function($d) use ($user_agent){
-                // checking if there is machintosh in the user agent
+                // checking if there is macintosh in the user agent
                 if (!preg_match("/macintosh/i", strtolower($user_agent))){
                     $d->setError("Sorry, this website is available only from Mac computers! Please buy one.");
                 }
@@ -152,7 +152,7 @@
     // Checking if there is any error
     if ($error = $validate->hasError()){
         // printing the message that there is an error
-        echo "well, there is an error that need to be fixed" . /** this is need for the new line cuz \n is not working in web **/ "<br>";
+        echo "well, there is an error that need to be fixed" . /** this is needed for the new line cuz \n is not working in web **/ "<br>";
         // printing the error message
         echo $error->message;
     } else {
