@@ -25,7 +25,7 @@
          * 
          * @var array
          */
-        private $languages = [];
+        private $languages = ["english", "japanese"];
         /**
          * Checking if in our validation is any error.
          * If there is any error then we will print out the error message
@@ -51,7 +51,7 @@
          * 
          * @return void
          */
-        private function setError(string $message){
+        public function setError(string $message){
             // Setting the error to true
             $this->error = true;
             // Setting the error message
@@ -118,19 +118,42 @@
             array_push($this->languages, $language);
             return $this;
         }
+        /**
+         * Custom validation function
+         * 
+         * @param callable $call    the function where will be validation code
+         * @return $this
+         */
+        public function custom(callable $call){
+            $call($this);
+            return $this;
+        }
     }
     // Creating new class identity
     $validate = new Validator;
+
+    // getting user agent from the request
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
     // validating email
     $validate->email("naru.koshin@outlook.jp")
     // validating gender
              ->gender("male")
     // validating language
-             ->language("german");
+             ->language("japanese")
+    // some custom validation
+             ->custom(function($d) use ($user_agent){
+                // checking if there is machintosh in the user agent
+                if (!preg_match("/macintosh/i", strtolower($user_agent))){
+                    $d->setError("Sorry, this website is available only from Mac computers! Please buy one.");
+                }
+             });
 
     // Checking if there is any error
     if ($error = $validate->hasError()){
+        // printing the message that there is an error
+        echo "well, there is an error that need to be fixed" . /** this is need for the new line cuz \n is not working in web **/ "<br>";
+        // printing the error message
         echo $error->message;
     } else {
         echo "Hooray, there is no errors!";
